@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+data/
+*.npz
+.DS_Store
+*.jpg
+models/unittest.pt
