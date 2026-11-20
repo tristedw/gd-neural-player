@@ -15,10 +15,12 @@ from .data import load_all
 
 
 def level_folders(level):
+    """Every data folder for a level (human, self, ...)."""
     return [p for p in glob.glob(os.path.join("data", level, "*")) if os.path.isdir(p)]
 
 
 def train(net, obs, target, weight, device, epochs=4, batch=256, lr=3e-4, log=True):
+    """Weighted BCE training with hold/release balancing. obs is uint8, converted per batch."""
     net.train()
     opt = torch.optim.Adam(net.parameters(), lr=lr)
     n = len(obs)
@@ -51,6 +53,7 @@ def train(net, obs, target, weight, device, epochs=4, batch=256, lr=3e-4, log=Tr
 
 
 def main():
+    """Train the level's model on all its data and save it."""
     ap = argparse.ArgumentParser()
     ap.add_argument("--level", default="default")
     ap.add_argument("--epochs", type=int, default=8)

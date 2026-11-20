@@ -1,5 +1,4 @@
 torch
 numpy
-mss
 opencv-python
 pyobjc-framework-Quartz

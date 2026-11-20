@@ -12,6 +12,7 @@ import numpy as np
 
 
 def save_chunk(folder, obs, target, weight):
+    """Write one batch of samples to a new npz file in folder. obs is float in [0, 1]."""
     if len(obs) == 0:
         return None
     os.makedirs(folder, exist_ok=True)
@@ -26,6 +27,7 @@ def save_chunk(folder, obs, target, weight):
 
 
 def load_all(folders, max_samples=None):
+    """Load every chunk in the given folders. Returns (obs uint8, target, weight) or None."""
     obs, target, weight = [], [], []
     files = []
     for f in folders:

@@ -12,6 +12,7 @@ from .window import Grabber
 
 
 def main():
+    """Print fps, scroll speed and death events for --seconds."""
     ap = argparse.ArgumentParser()
     ap.add_argument("--seconds", type=float, default=15)
     ap.add_argument("--save", default="", help="save first frame here")

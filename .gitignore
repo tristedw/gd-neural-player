@@ -1,7 +1,9 @@
 .venv/
 __pycache__/
 data/
+models/
 *.npz
-.DS_Store
+*.pt
+*.log
 *.jpg
-models/unittest.pt
+.DS_Store

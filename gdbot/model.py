@@ -1,3 +1,4 @@
+"""DashNet: the CNN that decides when to hold the button, plus load/save helpers."""
 import torch
 import torch.nn as nn
 
@@ -25,10 +26,12 @@ class DashNet(nn.Module):
         )
 
     def forward(self, x):
+        """x: (batch, STACK, H, W) floats in [0, 1]. Returns one logit per sample."""
         return self.head(self.conv(x)).squeeze(-1)
 
 
 def pick_device():
+    """Apple GPU if there is one, then CUDA, then CPU."""
     if torch.backends.mps.is_available():
         return torch.device("mps")
     if torch.cuda.is_available():
@@ -37,6 +40,7 @@ def pick_device():
 
 
 def load(path, device):
+    """Load a saved model in eval mode."""
     net = DashNet().to(device)
     state = torch.load(path, map_location=device)
     net.load_state_dict(state["model"] if "model" in state else state)
@@ -45,4 +49,5 @@ def load(path, device):
 
 
 def save(net, path, **meta):
+    """Save weights plus any extra info (attempts, best run, etc)."""
     torch.save({"model": net.state_dict(), **meta}, path)

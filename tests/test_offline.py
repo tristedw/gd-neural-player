@@ -8,6 +8,7 @@ from gdbot.vision import DeathDetector, FrameStack, OBS_H, OBS_W, STACK, preproc
 
 
 def fake_level(width=4000, h=591, seed=0):
+    """A wide fake level: dark background, ground, random blocks and specks."""
     rng = np.random.default_rng(seed)
     img = np.full((h, width, 3), 40, np.uint8)
     img[460:, :] = 90
@@ -19,6 +20,7 @@ def fake_level(width=4000, h=591, seed=0):
 
 
 def test_death_detector():
+    """Scroll, freeze (death), snap back and scroll again. Expect respawned, died, respawned."""
     lvl = fake_level()
     det = DeathDetector()
     events = []
@@ -42,6 +44,7 @@ def test_death_detector():
 
 
 def test_model_and_train():
+    """Model takes a real-shaped stack and a short training pass runs."""
     net = M.DashNet()
     st = FrameStack()
     obs = st.push(preprocess(fake_level()[:, :788]))
